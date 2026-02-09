@@ -12,14 +12,16 @@ export const useBooking = () => {
 
 export const BookingProvider = ({ children }) => {
   const [bookingData, setBookingData] = useState({
-    movie: null,
-    showtime: null,
-    date: null,
-    seats: [],
-    totalAmount: 0,
-    paymentMethod: null,
-    paymentDetails: null,
-  });
+  userEmail: null,          // ⭐ ADD THIS
+  movie: null,
+  showtime: null,
+  date: null,
+  seats: [],
+  totalAmount: 0,
+  paymentMethod: null,
+  paymentDetails: null,
+});
+
 
   const [isBookingComplete, setIsBookingComplete] = useState(false);
 
@@ -45,18 +47,24 @@ export const BookingProvider = ({ children }) => {
   };
 
   const completeBooking = () => {
-    setIsBookingComplete(true);
-    // Save to localStorage for orders page
-    const orders = JSON.parse(localStorage.getItem('orders') || '[]');
-    const newOrder = {
-      id: Date.now().toString(),
-      ...bookingData,
-      bookingDate: new Date().toISOString(),
-      status: 'Completed',
-    };
-    orders.push(newOrder);
-    localStorage.setItem('orders', JSON.stringify(orders));
+  const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+
+  const newOrder = {
+    id: Date.now(),
+    userEmail: bookingData.userEmail,   // ⭐ USER LINK
+    movie: bookingData.movie,
+    date: bookingData.date,
+    showtime: bookingData.showtime,
+    seats: bookingData.seats,
+    totalAmount: bookingData.totalAmount,
+    paymentMethod: bookingData.paymentMethod,
+    status: 'Completed',
   };
+
+  orders.push(newOrder);
+  localStorage.setItem('orders', JSON.stringify(orders));
+};
+
 
   return (
     <BookingContext.Provider

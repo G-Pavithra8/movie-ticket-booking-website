@@ -107,9 +107,11 @@ const Payment = () => {
     }
 
     updateBooking({
-      paymentMethod,
-      paymentDetails: formData,
-    });
+  paymentMethod,
+  paymentDetails: formData,
+  userEmail: user.email,     // ⭐ FOR USER EMIAL ASSOCIATION
+});
+
 
     completeBooking();
     setShowSuccess(true);
@@ -202,20 +204,7 @@ const Payment = () => {
                   </div>
                 </label>
 
-                <label className="flex items-center p-4 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="COD"
-                    checked={paymentMethod === 'COD'}
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                    className="w-5 h-5 text-[#e50914] focus:ring-[#e50914]"
-                  />
-                  <div className="ml-3 flex-1">
-                    <div className="font-medium text-gray-800">Cash on Delivery</div>
-                    <div className="text-sm text-gray-600">Pay at the theater</div>
-                  </div>
-                </label>
+          
               </div>
               {errors.paymentMethod && (
                 <p className="text-red-600 text-sm mt-2">{errors.paymentMethod}</p>

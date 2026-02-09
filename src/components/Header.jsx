@@ -16,7 +16,7 @@ const Header = ({ onSidebarToggle }) => {
               to="/"
               className="text-xl sm:text-2xl font-bold text-[#e50914] hover:text-[#ff6b6b] drop-shadow-sm transition-colors"
             >
-              MovieBook
+              Evolve MovieBook
             </Link>
 
             {/* Search Bar - Center (Desktop) */}

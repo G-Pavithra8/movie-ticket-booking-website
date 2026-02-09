@@ -29,7 +29,7 @@ const Profile = () => {
 
         <div className="bg-white rounded-lg shadow-md p-6">
           <div className="flex items-center gap-6 mb-6">
-            <div className="w-20 h-20 bg-[#ffb3ba] rounded-full flex items-center justify-center text-white text-2xl font-bold">
+            <div className="w-20 h-20 bg-[#e50914] rounded-full flex items-center justify-center text-white text-2xl font-bold">
               {user?.name?.charAt(0)?.toUpperCase() || user?.email?.charAt(0)?.toUpperCase() || 'U'}
             </div>
             <div>
@@ -62,7 +62,7 @@ const Profile = () => {
           <div className="mt-6 pt-6 border-t">
             <button
               onClick={() => navigate('/orders')}
-              className="px-6 py-2 bg-[#ffb3ba] text-white rounded-lg hover:bg-[#ff9ba3] transition-colors"
+              className="px-6 py-2 bg-[#e50914] text-white rounded-lg hover:bg-[#ff9ba3] transition-colors"
             >
               View My Orders
             </button>

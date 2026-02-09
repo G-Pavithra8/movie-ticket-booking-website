@@ -14,9 +14,15 @@ import Profile from './pages/Profile';
 import Orders from './pages/Orders';
 import Help from './pages/Help';
 import Login from './pages/Login';
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
 import Signup from './pages/Signup';
 import './styles/theme.css';
 import './styles/layout.css';
+import ChatBot from './components/ChatBot';
+
+
+
 import './App.css';
 
 function App() {
@@ -49,8 +55,13 @@ function App() {
                   <Route path="/help" element={<Help />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
+                  <Route path="/terms" element={<Terms />} />
+                  <Route path="/privacy" element={<Privacy />} />
+                  
+
                 </Routes>
               </main>
+              <ChatBot />
               <Footer />
             </div>
           </Router>

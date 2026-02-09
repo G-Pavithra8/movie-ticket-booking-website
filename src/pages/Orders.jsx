@@ -7,14 +7,20 @@ const Orders = () => {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      // Load orders from localStorage
-      const storedOrders = JSON.parse(localStorage.getItem('orders') || '[]');
-      // Filter orders for current user (if needed)
-      setOrders(storedOrders.reverse()); // Show newest first
-    }
-  }, [isAuthenticated]);
+ useEffect(() => {
+  if (!isAuthenticated || !user?.email) return;
+
+  const storedOrders = JSON.parse(
+    localStorage.getItem('orders') || '[]'
+  );
+
+  const userOrders = storedOrders
+    .filter(order => order.userEmail === user.email)
+    .reverse(); // newest first
+
+  setOrders(userOrders);
+}, [isAuthenticated, user]);
+
 
   if (!isAuthenticated) {
     return (

@@ -13,6 +13,8 @@ const BookTickets = () => {
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedShowtime, setSelectedShowtime] = useState('');
+  const [selectedTheatre, setSelectedTheatre] = useState('');
+
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [showtimes, setShowtimes] = useState(['10:00 AM', '1:30 PM', '4:00 PM', '7:00 PM', '10:30 PM']);
 
@@ -29,6 +31,19 @@ const BookTickets = () => {
     }
     return dates;
   };
+const theatres = [
+  'INOX Cinemas',
+  'PVR Cinemas',
+  'AGS Cinemas',
+  'SPI Sathyam',
+  'Rohini Silver Screens',
+  'Sathyam Cinemas',
+  'Escape Cinemas',
+  'Mayajaal Cinemas',
+  'Ega Cinemas',
+  'S2 Cinemas',
+];
+
 
   // Seat layout (10 rows, 12 seats per row)
   const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
@@ -125,12 +140,14 @@ const BookTickets = () => {
     }
 
     const totalAmount = calculateTotal(selectedSeats);
-    updateBooking({
-      date: selectedDate,
-      showtime: selectedShowtime,
-      seats: selectedSeats,
-      totalAmount,
-    });
+  updateBooking({
+  date: selectedDate,
+  theatre: selectedTheatre,
+  showtime: selectedShowtime,
+  seats: selectedSeats,
+  totalAmount,
+});
+
 
     navigate('/payment');
   };
@@ -202,9 +219,31 @@ const BookTickets = () => {
                 ))}
               </div>
             </div>
-
+{/* Theatre Selection */}
+{selectedDate && (
+  <div className="bg-white rounded-lg shadow-md p-6">
+    <h2 className="text-xl font-semibold text-gray-800 mb-4">
+      Select Theatre
+    </h2>
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      {theatres.map((theatre) => (
+        <button
+          key={theatre}
+          onClick={() => setSelectedTheatre(theatre)}
+          className={`p-3 rounded-lg border-2 transition-colors text-left ${
+            selectedTheatre === theatre
+              ? 'border-[#e50914] bg-[#ffdfd3] text-[#e50914]'
+              : 'border-gray-200 hover:border-[#e50914]'
+          }`}
+        >
+          {theatre}
+        </button>
+      ))}
+    </div>
+  </div>
+)}
             {/* Showtime Selection */}
-            {selectedDate && (
+            {selectedDate && selectedTheatre && (
               <div className="bg-white rounded-lg shadow-md p-6">
                 <h2 className="text-xl font-semibold text-gray-800 mb-4">Select Showtime</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -333,7 +372,7 @@ const BookTickets = () => {
               </div>
               <button
                 onClick={handleProceedToPayment}
-                disabled={!selectedDate || !selectedShowtime || selectedSeats.length === 0}
+                disabled={!selectedDate || !selectedTheatre || !selectedShowtime || selectedSeats.length === 0}
                 className="w-full py-3 bg-[#e50914] text-white rounded-lg font-semibold hover:bg-[#ff9ba3] transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
               >
                 Proceed to Payment

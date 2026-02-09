@@ -10,7 +10,7 @@ const Filters = () => {
     clearFilters,
   } = useMovies();
 
-  const languages = ['Tamil', 'English', 'Hindi', 'Malayalam', 'Telugu'];
+  const languages = [ 'English', 'Hindi'];
   const genres = [
     { id: 'Action', name: 'Action' },
     { id: 'Comedy', name: 'Comedy' },
