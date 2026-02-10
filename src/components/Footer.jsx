@@ -44,25 +44,7 @@ const Footer = () => {
           </div>
 
           {/* Social */}
-          <div>
-            <h4 className="text-lg font-semibold text-white mb-3">
-              Follow Us
-            </h4>
-            <div className="flex gap-4 mt-2">
-              <a href="#" className="p-2 bg-gray-800 rounded-full hover:bg-red-500 transition">
-                <FaFacebookF />
-              </a>
-              <a href="#" className="p-2 bg-gray-800 rounded-full hover:bg-red-500 transition">
-                <FaInstagram />
-              </a>
-              <a href="#" className="p-2 bg-gray-800 rounded-full hover:bg-red-500 transition">
-                <FaTwitter />
-              </a>
-              <a href="#" className="p-2 bg-gray-800 rounded-full hover:bg-red-500 transition">
-                <FaYoutube />
-              </a>
-            </div>
-          </div>
+         
         </div>
 
         {/* Divider */}
