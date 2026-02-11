@@ -2,28 +2,7 @@
 const API_KEY = process.env.REACT_APP_OMDB_API_KEY || '7806e5b0';
 const BASE_URL = 'https://www.omdbapi.com';
 
-// Language mapping for Indian languages
-const LANGUAGE_MAP = {
-  'tamil': 'Tamil',
-  'english': 'English',
-  'hindi': 'Hindi',
-  'malayalam': 'Malayalam',
-  'telugu': 'Telugu',
-};
 
-// Genre mapping
-const GENRE_MAP = {
-  'Action': 'Action',
-  'Comedy': 'Comedy',
-  'Drama': 'Drama',
-  'Thriller': 'Thriller',
-  'Romance': 'Romance',
-  'Horror': 'Horror',
-  'Sci-Fi': 'Science Fiction',
-  'Animation': 'Animation',
-  'Crime': 'Crime',
-  'Documentary': 'Documentary',
-};
 
 export const getImageUrl = (poster) => {
   if (!poster || poster === 'N/A') {

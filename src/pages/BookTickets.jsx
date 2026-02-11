@@ -16,7 +16,13 @@ const BookTickets = () => {
   const [selectedTheatre, setSelectedTheatre] = useState('');
 
   const [selectedSeats, setSelectedSeats] = useState([]);
-  const [showtimes, setShowtimes] = useState(['10:00 AM', '1:30 PM', '4:00 PM', '7:00 PM', '10:30 PM']);
+  const [showtimes] = useState([
+  '10:00 AM',
+  '1:30 PM',
+  '4:00 PM',
+  '7:00 PM',
+  '10:30 PM'
+]);
 
   // Generate dates for next 7 days
   const getAvailableDates = () => {

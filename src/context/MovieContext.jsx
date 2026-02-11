@@ -27,8 +27,8 @@ export const MovieProvider = ({ children }) => {
 
   // Filter movies when filters or search change
   useEffect(() => {
-    filterMovies();
-  }, [movies, selectedLanguage, selectedGenre, searchQuery]);
+  filterMovies();
+}, [movies, selectedLanguage, selectedGenre, searchQuery]);
 
   const loadMovies = async () => {
     setLoading(true);
