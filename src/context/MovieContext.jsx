@@ -1,4 +1,5 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
+
 import { fetchMovies, searchMovies } from '../services/movieApi';
 
 const MovieContext = createContext();
