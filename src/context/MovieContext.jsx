@@ -1,4 +1,5 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
+
 
 import { fetchMovies, searchMovies } from '../services/movieApi';
 
@@ -27,10 +28,6 @@ export const MovieProvider = ({ children }) => {
   }, []);
 
   // Filter movies when filters or search change
- // eslint-disable-next-line react-hooks/exhaustive-deps
-useEffect(() => {
-  filterMovies();
-}, [movies, selectedLanguage, selectedGenre, searchQuery]);
 
   const loadMovies = async () => {
     setLoading(true);
@@ -47,50 +44,53 @@ useEffect(() => {
     }
   };
 
-  const filterMovies = () => {
-    let filtered = [...movies];
+  const filterMovies = useCallback(() => {
+  let filtered = [...movies];
 
-    // Apply search filter
-    if (searchQuery.trim()) {
-      filtered = filtered.filter(movie =>
-        movie.title?.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
+  // Search filter
+  if (searchQuery.trim()) {
+    filtered = filtered.filter(movie =>
+      movie.title?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
 
-    // Apply language filter
-    if (selectedLanguage) {
-      filtered = filtered.filter(movie =>
-        movie.original_language?.toLowerCase() === selectedLanguage.toLowerCase() ||
-        movie.spoken_languages?.some(lang => 
-          lang.name?.toLowerCase() === selectedLanguage.toLowerCase()
-        )
-      );
-    }
+  // Language filter
+  if (selectedLanguage) {
+    filtered = filtered.filter(movie =>
+      movie.original_language?.toLowerCase() === selectedLanguage.toLowerCase() ||
+      movie.spoken_languages?.some(lang =>
+        lang.name?.toLowerCase() === selectedLanguage.toLowerCase()
+      )
+    );
+  }
 
-    // Apply genre filter
-    if (selectedGenre) {
-      filtered = filtered.filter(movie => {
-        // Check if genre_ids array includes the selected genre (for string-based genres)
-        if (Array.isArray(movie.genre_ids)) {
-          return movie.genre_ids.some(genre => 
-            genre?.toLowerCase() === selectedGenre.toLowerCase() ||
-            (typeof genre === 'string' && genre.toLowerCase().includes(selectedGenre.toLowerCase()))
-          );
-        }
-        // Check if genres array includes the selected genre
-        if (Array.isArray(movie.genres)) {
-          return movie.genres.some(genre => 
-            genre?.name?.toLowerCase() === selectedGenre.toLowerCase() ||
-            (typeof genre === 'string' && genre.toLowerCase().includes(selectedGenre.toLowerCase())) ||
-            (typeof genre === 'object' && genre.name?.toLowerCase() === selectedGenre.toLowerCase())
-          );
-        }
-        return false;
-      });
-    }
+  // Genre filter
+  if (selectedGenre) {
+    filtered = filtered.filter(movie => {
+      if (Array.isArray(movie.genre_ids)) {
+        return movie.genre_ids.some(genre =>
+          genre?.toLowerCase() === selectedGenre.toLowerCase()
+        );
+      }
 
-    setFilteredMovies(filtered);
-  };
+      if (Array.isArray(movie.genres)) {
+        return movie.genres.some(genre =>
+          genre?.name?.toLowerCase() === selectedGenre.toLowerCase()
+        );
+      }
+
+      return false;
+    });
+  }
+
+  setFilteredMovies(filtered);
+
+}, [movies, selectedLanguage, selectedGenre, searchQuery]);
+
+useEffect(() => {
+  filterMovies();
+}, [filterMovies]);
+
 
   const handleSearch = async (query) => {
     setSearchQuery(query);
