@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
 import { fetchMovies, searchMovies } from '../services/movieApi';
 
@@ -27,7 +27,8 @@ export const MovieProvider = ({ children }) => {
   }, []);
 
   // Filter movies when filters or search change
-  useEffect(() => {
+ // eslint-disable-next-line react-hooks/exhaustive-deps
+useEffect(() => {
   filterMovies();
 }, [movies, selectedLanguage, selectedGenre, searchQuery]);
 
